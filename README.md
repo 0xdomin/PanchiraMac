@@ -10,13 +10,9 @@ Open your MacBook lid — the camera smoothly rises from below the character's f
 
 ## Features
 
-- **Lid angle → vertical camera** — IOKit reads the physical hinge angle (0°–130°) and maps it to camera elevation in real time
-- **Drag → horizontal rotation** — click and drag anywhere to orbit the camera left/right
-- **Scroll → zoom** — two-finger scroll or mouse wheel zooms in and out
-- **Auto zoom at low angles** — camera zooms in up to 25% extra as the lid approaches 0°
-- **Clamshell detection** — shows a message instead of the 3D view when running in clamshell mode
-- **Custom model upload** — load any `.usdz` file to replace the default character
-- **Launches fullscreen** — opens in fullscreen by default
+- The camera moves as you open and close your MacBook lid — no touch required
+- Load any `.usdz` file to swap in your own 3D character
+- Completely free and open source
 
 ## Requirements
 
