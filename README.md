@@ -4,8 +4,6 @@
 
 > Close your MacBook lid.
 
-Open your MacBook lid — the camera smoothly rises from below the character's feet to above their head. Drag to rotate. Scroll to zoom.
-
 ---
 
 ## Features
