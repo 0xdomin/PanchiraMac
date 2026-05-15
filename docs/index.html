@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PanchiraMac — Your MacBook lid is the controller</title>
+  <meta name="description" content="A macOS app that uses your MacBook lid angle to control the camera around a 3D character. Free and open source." />
+  <meta property="og:title" content="PanchiraMac" />
+  <meta property="og:description" content="Your MacBook lid is the controller." />
+  <meta property="og:type" content="website" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #07071a;
+      --surface: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08);
+      --accent1: #a855f7;
+      --accent2: #6366f1;
+      --accent3: #3b82f6;
+      --text: #f1f1f8;
+      --muted: rgba(241,241,248,0.45);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", sans-serif;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── Background glow ── */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% 10%, rgba(168,85,247,0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 80% 80%, rgba(59,130,246,0.10) 0%, transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    main { position: relative; z-index: 1; }
+
+    /* ── Nav ── */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-logo {
+      font-size: 18px;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--accent1), var(--accent3));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 14px;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--text); }
+
+    /* ── Hero ── */
+    .hero {
+      text-align: center;
+      padding: 100px 24px 80px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(168,85,247,0.12);
+      border: 1px solid rgba(168,85,247,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px;
+      color: #c084fc;
+      margin-bottom: 32px;
+    }
+    .badge span { width: 6px; height: 6px; background: #a855f7; border-radius: 50%; display: inline-block; }
+    h1 {
+      font-size: clamp(52px, 8vw, 88px);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.0;
+      background: linear-gradient(135deg, #fff 0%, rgba(255,255,255,0.6) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 24px;
+    }
+    .tagline {
+      font-size: clamp(18px, 3vw, 24px);
+      color: var(--muted);
+      margin-bottom: 48px;
+      font-weight: 400;
+    }
+    .tagline strong { color: var(--text); font-weight: 600; }
+    .cta-group { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent1), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 600;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      padding: 14px 28px;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 500;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.08); transform: translateY(-1px); }
+
+    /* ── MacBook visual ── */
+    .visual {
+      max-width: 640px;
+      margin: 72px auto;
+      padding: 0 24px;
+    }
+    .macbook-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    /* Screen */
+    .mb-screen {
+      width: 100%;
+      max-width: 480px;
+      background: #0d0d1e;
+      border: 2px solid rgba(255,255,255,0.12);
+      border-radius: 16px 16px 4px 4px;
+      padding: 20px;
+      transform-origin: bottom center;
+      animation: lidOpen 3s ease-in-out infinite alternate;
+    }
+    @keyframes lidOpen {
+      0%   { transform: perspective(800px) rotateX(38deg); }
+      100% { transform: perspective(800px) rotateX(0deg); }
+    }
+    .mb-screen-inner {
+      background: var(--bg);
+      border-radius: 8px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      position: relative;
+    }
+    /* Animated character silhouette */
+    .char {
+      width: 60px;
+      height: 120px;
+      position: relative;
+    }
+    .char-head {
+      width: 38px; height: 38px;
+      background: linear-gradient(135deg,#e8c8b0,#d4a885);
+      border-radius: 50%;
+      margin: 0 auto 4px;
+      position: relative;
+    }
+    .char-body {
+      width: 32px; height: 44px;
+      background: linear-gradient(135deg,var(--accent2),var(--accent1));
+      border-radius: 10px 10px 4px 4px;
+      margin: 0 auto;
+    }
+    /* Camera orbit ring */
+    .orbit-ring {
+      position: absolute;
+      inset: -24px;
+      border: 1.5px dashed rgba(168,85,247,0.35);
+      border-radius: 50%;
+      animation: spinOrbit 6s linear infinite;
+    }
+    .orbit-dot {
+      position: absolute;
+      width: 10px; height: 10px;
+      background: var(--accent1);
+      border-radius: 50%;
+      top: -5px;
+      left: calc(50% - 5px);
+      box-shadow: 0 0 12px var(--accent1);
+      animation: spinOrbit 6s linear infinite;
+    }
+    @keyframes spinOrbit {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+    /* Angle label */
+    .angle-label {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-size: 11px;
+      color: var(--accent1);
+      opacity: 0.7;
+      font-variant-numeric: tabular-nums;
+      animation: countUp 3s ease-in-out infinite alternate;
+    }
+    @keyframes countUp {
+      0%   { opacity: 0.4; }
+      100% { opacity: 0.9; }
+    }
+    /* Base */
+    .mb-base {
+      width: 110%;
+      max-width: 528px;
+      height: 18px;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 0 0 10px 10px;
+    }
+    .mb-notch {
+      width: 60px; height: 6px;
+      background: rgba(255,255,255,0.08);
+      border-radius: 0 0 6px 6px;
+      margin: 0 auto;
+    }
+    .visual-caption {
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+      margin-top: 20px;
+    }
+
+    /* ── Features ── */
+    .features {
+      max-width: 900px;
+      margin: 40px auto 100px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .feature-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .feature-card:hover { border-color: rgba(255,255,255,0.16); transform: translateY(-2px); }
+    .feature-icon {
+      width: 44px; height: 44px;
+      background: linear-gradient(135deg, rgba(168,85,247,0.2), rgba(59,130,246,0.2));
+      border: 1px solid rgba(168,85,247,0.25);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 16px;
+    }
+    .feature-card h3 {
+      font-size: 17px;
+      font-weight: 650;
+      margin-bottom: 8px;
+      letter-spacing: -0.3px;
+    }
+    .feature-card p { color: var(--muted); font-size: 14px; line-height: 1.65; }
+
+    /* ── Requirements ── */
+    .requirements {
+      max-width: 600px;
+      margin: 0 auto 100px;
+      padding: 0 24px;
+      text-align: center;
+    }
+    .requirements h2 {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      letter-spacing: -0.5px;
+    }
+    .req-pills {
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+    .pill {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 24px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    footer a { color: var(--muted); text-decoration: none; }
+    footer a:hover { color: var(--text); }
+    .lang-links { display: flex; gap: 16px; justify-content: center; margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+<main>
+  <nav>
+    <span class="nav-logo">PanchiraMac</span>
+    <a href="https://github.com/0xdomin/PanchiraMac" target="_blank">GitHub ↗</a>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="badge"><span></span> Free &amp; Open Source</div>
+    <h1>PanchiraMac</h1>
+    <p class="tagline">Your <strong>MacBook lid</strong> is the controller.</p>
+    <div class="cta-group">
+      <a href="https://github.com/0xdomin/PanchiraMac" class="btn-primary" target="_blank">
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+      <a href="https://github.com/0xdomin/PanchiraMac/releases" class="btn-secondary" target="_blank">
+        Download
+      </a>
+    </div>
+  </section>
+
+  <!-- MacBook Visual -->
+  <div class="visual">
+    <div class="macbook-wrap">
+      <div class="mb-screen">
+        <div class="mb-screen-inner">
+          <div style="position:relative; display:flex; align-items:center; justify-content:center; width:100%; height:100%;">
+            <div class="orbit-ring"></div>
+            <div class="orbit-dot"></div>
+            <div class="char">
+              <div class="char-head"></div>
+              <div class="char-body"></div>
+            </div>
+            <div class="angle-label">↕ lid angle</div>
+          </div>
+        </div>
+      </div>
+      <div class="mb-base"><div class="mb-notch"></div></div>
+    </div>
+    <p class="visual-caption">Open the lid → camera rises. Close it → camera descends.</p>
+  </div>
+
+  <!-- Features -->
+  <section class="features">
+    <div class="feature-card">
+      <div class="feature-icon">💻</div>
+      <h3>Lid = Camera</h3>
+      <p>The camera moves as you open and close your MacBook lid — no touch, no keyboard required.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">🎭</div>
+      <h3>Your Character</h3>
+      <p>Load any <code style="font-size:12px;background:rgba(255,255,255,0.08);padding:1px 5px;border-radius:4px;">.usdz</code> file to swap in your own 3D model instantly.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon">✨</div>
+      <h3>Completely Free</h3>
+      <p>Open source, no accounts, no subscriptions. Just download and run.</p>
+    </div>
+  </section>
+
+  <!-- Requirements -->
+  <section class="requirements">
+    <h2>Get it</h2>
+    <div class="req-pills">
+      <span class="pill">macOS 15.0+</span>
+      <span class="pill">Apple Silicon</span>
+      <span class="pill">Free</span>
+    </div>
+    <div class="cta-group">
+      <a href="https://github.com/0xdomin/PanchiraMac" class="btn-primary" target="_blank">
+        View on GitHub
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="lang-links">
+    <a href="https://github.com/0xdomin/PanchiraMac/blob/main/README.md">English</a>
+    <a href="https://github.com/0xdomin/PanchiraMac/blob/main/README.ko.md">한국어</a>
+    <a href="https://github.com/0xdomin/PanchiraMac/blob/main/README.ja.md">日本語</a>
+    <a href="https://github.com/0xdomin/PanchiraMac/blob/main/README.zh.md">中文</a>
+  </div>
+  <span>PanchiraMac — <a href="https://github.com/0xdomin/PanchiraMac" target="_blank">0xdomin</a></span>
+</footer>
+</body>
+</html>
