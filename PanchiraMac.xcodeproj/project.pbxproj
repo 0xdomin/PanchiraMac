@@ -1,0 +1,274 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		LC000001 /* PanchiraMacApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = LC100001 /* PanchiraMacApp.swift */; };
+		LC000002 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = LC100002 /* ContentView.swift */; };
+		LC000003 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = LC100003 /* AppState.swift */; };
+		LC000004 /* LidAngleSensor.swift in Sources */ = {isa = PBXBuildFile; fileRef = LC100004 /* LidAngleSensor.swift */; };
+		LC000005 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = LC100005 /* Assets.xcassets */; };
+		LC000006 /* RealityKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = LC100006 /* RealityKit.framework */; };
+		LC000007 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = LC100007 /* IOKit.framework */; };
+		LC000009 /* character.usdz in Resources */ = {isa = PBXBuildFile; fileRef = LC100009 /* character.usdz */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		LC100000 /* PanchiraMac.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PanchiraMac.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		LC100001 /* PanchiraMacApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanchiraMacApp.swift; sourceTree = "<group>"; };
+		LC100002 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		LC100003 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		LC100004 /* LidAngleSensor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LidAngleSensor.swift; sourceTree = "<group>"; };
+		LC100005 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		LC100008 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		LC100009 /* character.usdz */ = {isa = PBXFileReference; lastKnownFileType = file; path = character.usdz; sourceTree = "<group>"; };
+		LC100006 /* RealityKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RealityKit.framework; path = System/Library/Frameworks/RealityKit.framework; sourceTree = SDKROOT; };
+		LC100007 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		LC200003 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				LC000006 /* RealityKit.framework in Frameworks */,
+				LC000007 /* IOKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		LC200000 /* = */ = {
+			isa = PBXGroup;
+			children = (
+				LC200010 /* PanchiraMac */,
+				LC200020 /* Frameworks */,
+				LC200030 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		LC200010 /* PanchiraMac */ = {
+			isa = PBXGroup;
+			children = (
+				LC100001 /* PanchiraMacApp.swift */,
+				LC100002 /* ContentView.swift */,
+				LC100003 /* AppState.swift */,
+				LC100004 /* LidAngleSensor.swift */,
+				LC100005 /* Assets.xcassets */,
+				LC100008 /* Info.plist */,
+				LC100009 /* character.usdz */,
+			);
+			path = PanchiraMac;
+			sourceTree = "<group>";
+		};
+		LC200020 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				LC100006 /* RealityKit.framework */,
+				LC100007 /* IOKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		LC200030 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				LC100000 /* PanchiraMac.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		LC300000 /* PanchiraMac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = LC400010 /* Build configuration list for PBXNativeTarget "PanchiraMac" */;
+			buildPhases = (
+				LC200001 /* Sources */,
+				LC200002 /* Resources */,
+				LC200003 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PanchiraMac;
+			productName = PanchiraMac;
+			productReference = LC100000 /* PanchiraMac.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		LC300001 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 1600;
+				TargetAttributes = {
+					LC300000 = {
+						CreatedOnToolsVersion = 16.0;
+					};
+				};
+			};
+			buildConfigurationList = LC400000 /* Build configuration list for PBXProject "PanchiraMac" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = LC200000;
+			productRefGroup = LC200030 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				LC300000 /* PanchiraMac */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		LC200002 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				LC000005 /* Assets.xcassets in Resources */,
+				LC000009 /* character.usdz in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		LC200001 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				LC000001 /* PanchiraMacApp.swift in Sources */,
+				LC000002 /* ContentView.swift in Sources */,
+				LC000003 /* AppState.swift in Sources */,
+				LC000004 /* LidAngleSensor.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		LC400001 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEAD_CODE_STRIPPING = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PanchiraMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PanchiraMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		LC400002 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = PanchiraMac/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.example.PanchiraMac;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		LC400003 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		LC400004 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		LC400000 /* Build configuration list for PBXProject "PanchiraMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				LC400003 /* Debug */,
+				LC400004 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		LC400010 /* Build configuration list for PBXNativeTarget "PanchiraMac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				LC400001 /* Debug */,
+				LC400002 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = LC300001 /* Project object */;
+}
