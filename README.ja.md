@@ -2,7 +2,7 @@
 
 **[English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [中文](README.zh.md)**
 
-> MacBook の開閉角度で 3D キャラクター周囲のカメラを制御する macOS アプリ。
+> MacBook の蓋を閉めてみてください。
 
 MacBook を開くとカメラがキャラクターの足元から頭上へ滑らかに移動します。ドラッグで左右回転、スクロールでズーム。
 

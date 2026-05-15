@@ -2,7 +2,7 @@
 
 **[English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [中文](README.zh.md)**
 
-> 一款 macOS 应用，通过 MacBook 屏幕开合角度控制 3D 角色周围的摄像机。
+> 合上你的 MacBook 盖子。
 
 打开 MacBook 盖子，摄像机会从角色脚下平滑移动至头顶。拖拽可左右旋转，滚动可缩放。
 

@@ -2,7 +2,7 @@
 
 **[English](README.md) | [한국어](README.ko.md) | [日本語](README.ja.md) | [中文](README.zh.md)**
 
-> A macOS app that uses your MacBook's lid angle to control the camera around a 3D character.
+> Close your MacBook lid.
 
 Open your MacBook lid — the camera smoothly rises from below the character's feet to above their head. Drag to rotate. Scroll to zoom.
 
